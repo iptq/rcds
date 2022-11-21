@@ -30,9 +30,8 @@ class ScoreboardBackend(rcds.backend.BackendScoreboard):
                 env_key, self._options.get(option_key, None)
             )
 
-        # FIXME: validate options better
-        if not options_schema_validator.is_valid(self._options):
-            raise ValueError("Invalid options")
+        # Will raise an exception if options are invalid
+        options_schema_validator.validate(self._options)
 
         self._adminv1 = RCTFAdminV1(self._options["url"], self._options["token"])
 
